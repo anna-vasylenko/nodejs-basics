@@ -9,4 +9,12 @@ router.get('/', ctrlWrapper(studentsControllers.getStudentsController) );
 
 router.get('/:studentId', ctrlWrapper(studentsControllers.getStudentByIdController));
 
+router.post('/', ctrlWrapper(studentsControllers.createStudentController));
+
+router.delete('/:studentId', ctrlWrapper(studentsControllers.deleteStudentController));
+
+router.put('/:studentId', ctrlWrapper(studentsControllers.upsertStudentController));
+
+router.patch('/:studentId', ctrlWrapper(studentsControllers.patchStudentController));
+
 export default router;
