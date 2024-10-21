@@ -29,7 +29,6 @@ export const getAllStudents = async ({
   if (filter.minAvgMark) {
     studentsQuery.where('avgMark').gte(filter.minAvgMark);
   }
-люблю тебе ДУУУУУУУЖЕЕЕЕЕ сильно
 
   const [studentsCount, students] = await Promise.all([
     StudentsCollection.find().merge(studentsQuery).countDocuments(),
