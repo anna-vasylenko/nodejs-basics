@@ -1,8 +1,22 @@
 import createHttpError from 'http-errors';
 import { getAllStudents, getStudentById, createStudent, deleteStudent, updateStudent } from '../services/students.js';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
+
 
 export const getStudentsController = async (req, res) => {
-  const students = await getAllStudents();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+  const filter = parseFilterParams(req.query);
+
+  const students = await getAllStudents({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
 
   res.json({
     status: 200,
@@ -10,7 +24,6 @@ export const getStudentsController = async (req, res) => {
     data: students,
   });
 };
-
 
 export const getStudentByIdController = async (req, res, next) => {
     const { studentId } = req.params;
@@ -78,7 +91,7 @@ export const getStudentByIdController = async (req, res, next) => {
     const { studentId } = req.params;
 
     const result = await updateStudent(studentId, req.body);
-  
+
     if (!result) {
       next(createHttpError(404, 'Student not found'));
       return;
