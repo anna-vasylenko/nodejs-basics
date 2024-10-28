@@ -11,6 +11,7 @@ export const createStudentSchema = Joi.object({
   age: Joi.number().integer().min(6).max(16).required(),
   gender: Joi.string().valid('male', 'female', 'other').required(),
   avgMark: Joi.number().min(2).max(12).required(),
+  parentId: Joi.string().required(),
   onDuty: Joi.boolean(),
 });
 
@@ -20,5 +21,6 @@ export const updateStudentSchema = Joi.object({
   age: Joi.number().integer().min(6).max(16),
   gender: Joi.string().valid('male', 'female', 'other'),
   avgMark: Joi.number().min(2).max(12),
+  parentId: Joi.string().required(),
   onDuty: Joi.boolean(),
 });
